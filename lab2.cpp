@@ -22,16 +22,19 @@ void addFirst( struct node**head, long long int x1,long long int y1)
     *head=newnode;
 }
 
-int delFirst(struct node**head)
+void delFirst(struct node**head)
 {
     struct node*temp=*head;
-    if(*head==NULL) return -1;
+    if(*head==NULL) 
+    {cout<<-1;
+     return;}
     *head=temp->next;
     free(temp);
-    return 0;
+    return;
+    
 }
 
-int del(struct node**head, long long int x1,long long int y1)
+void del(struct node**head, long long int x1,long long int y1)
 {
     struct node*temp=*head;
     struct node*prev;
@@ -39,18 +42,22 @@ int del(struct node**head, long long int x1,long long int y1)
     {
         *head=temp->next;
         free(temp);
-        return 0;
+        return;
     }
     while(temp!=NULL &&(temp->p.x!=x1 && temp->p.y!=y1))
           {
             prev=temp;
             temp=temp->next;
           }
-    if(temp==NULL) return -1;
+    if(temp==NULL) 
+     {
+     cout<<-1;
+     return;
+     }
 
-    prev=temp->next;
+    prev->next=temp->next;
     free(temp);
-    return 0;
+    
 
 
 
@@ -59,13 +66,15 @@ int del(struct node**head, long long int x1,long long int y1)
 void search2(struct node**head,long double d)
 {
     struct node*temp=*head;
+    int y;
     while(temp!=NULL)
     {
          if(sqrt((temp->p.x)*(temp->p.x)+(temp->p.y)*(temp->p.y))<=d)
-        cout<<'('<<temp->p.x<<','<<temp->p.y<<')';
+         y++;
         temp=temp->next;
     }
-
+  if(y>0)cout<<y;
+  else cout<<-1;
 
 }
 bool search1(struct node**head,long long int x1,long long int y1)
@@ -116,14 +125,14 @@ int main()
         break;
     case 2:
         {
-            cout<<delFirst(&Head);
+            delFirst(&Head);
         }
         break;
     case 3:
         {
             long long int c,d;
             cin>>c>>d;
-            cout<<del(&Head,c,d);
+            del(&Head,c,d);
         }
         break;
     case 4:
@@ -137,8 +146,8 @@ int main()
         {
            long long  int e,f;
             cin>>e>>f;
-            if(search1(&Head,e,f)) cout<<"true";
-            else cout<<"false";
+            if(search1(&Head,e,f)) cout<<"True";
+            else cout<<"False";
         }
         break;
     case 6:
@@ -152,3 +161,4 @@ int main()
      i++;}
     return 0;
 }
+
