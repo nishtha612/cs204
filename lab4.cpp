@@ -99,16 +99,17 @@ t* tree( string r)
  
  int i=0;
  while(1)
- { 
+ { int w=0;
    string l="";
    for(int j=i;j<r.length();j++)
    {
     if(isOperator(r[j])==0 && r[j]!='?')
      { l.push_back(r[j]);
-       i=j+1;}
+       i=j+1;
+       w=1;}
     else break;
    }
-   if(isOperator(r[i])==1 || r[i]=='?')
+   if((isOperator(r[i])==1 || r[i]=='?') && w==1)
     { 
       t1=newnode(l);
       sc.push(t1);
@@ -121,16 +122,16 @@ t* tree( string r)
      t2=sc.top();
      sc.pop();
      t3=sc.top();
-     sc.top();
+     sc.pop();
      
      t1->right =t2;
      t1->left=t3;
     
      sc.push(t1);
      
-}
+  }
   i++;
-  if(i==r.length()+1) break;
+  if(i==r.length()) break;
 }
 
  t1=sc.top();
@@ -155,11 +156,11 @@ int toInt(string s)
 int eval(t *root)  
 {  
       
-    if (!root)  
+    if (root==NULL)  
      return 0;  
   
       
-    if (!root->left && !root->right)  
+    if (root->left==NULL && root->right==NULL)  
         return toInt(root->num);  
   
     
@@ -189,23 +190,27 @@ int eval(t *root)
       
 int main()
 {
-  int n;
-  cin>>n;
-  int arr[n];
-  for(int i=0;i<n;i++)
+  int f,g;
+  cin>>f;
   
-  {string e;
-  cin>>e;
-  arr[i]= (eval(tree(intopo(e))));}
-  
-  
- for(int i=0;i<n;i++)
- cout<<arr[i]<<'\n';
-  
+  for(int i=0;i<f;i++)
+   {
+     cin>>g;
+     for(int j=0;j<g;j++)
+      {string e;
+      cin>>e;
+      cout<<eval(tree(intopo(e)));}}
+ 
   
   return 0;}
       
     
+    
+      
+     
+     
+     
+         
     
       
      
