@@ -19,7 +19,91 @@ int prec(char c)
   return 1;
   
   return -1;}
+
+string changestr( string s)
+{
   
+  for(int i=0;i<s.length(); i++)
+  { if(i==0 && s[i]=='-' && s[i+1]!='(')
+      { 
+        int j=i;
+        s.insert(i,"(0", 2);
+        if((j+4)<s.length())
+         {while(s[j+4]!='*' && s[j+4]!='+' && s[j+4]!='-' && s[j+4]!='/' && s[j+4]!='^') {j++;
+         if(j+4==s.length()) break;}}
+       if(j+4<s.length()) s.insert(j+4,1,')');
+        else s.push_back(')');
+       }
+    
+   if(i==0 && s[i]=='-' && s[i+1]=='(')
+      { 
+        int j=i;
+        
+        
+        s.insert(i,"(0", 2);
+        
+        if((j+5)<s.length())
+         {int k=0;
+          while(1) {
+         if(s[j+4]=='(') k++;
+         if(s[j+4]==')') k--;
+         
+         if(k<0) break; 
+         j++;   }}
+         
+   
+        if(j+4<s.length())s.insert(j+5,1,')');
+        else s.push_back(')');   }
+
+        
+    if((s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/' || s[i]=='^') && s[i+1]=='-' && s[i+2]!='(')
+     {s.insert(i+1, "(0", 2);
+      int j=i;
+      if((j+5)<s.length() )
+       {
+        while(s[j+5]!='*' && s[j+5]!='+' && s[j+5]!='-' && s[j+5]!='/' && s[j+5]!='^') {j++;
+         if(j+5==s.length()) break;}}
+       if(j+5<s.length()) s.insert(j+5,1, ')');
+       
+     
+     
+      else s.push_back(')');
+      }
+    
+      if((s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/' || s[i]=='^') && s[i+1]=='-' && s[i+2]=='(')
+     { s.insert(i+1, "(0", 2);
+      int j=i;
+      int k=0;
+      if((j+5)<s.length() )
+       {
+        while(1){
+         if(s[j+5]=='(') k++;
+         if(s[j+5]==')') k--;
+         if(k<0) break; 
+         j++;  }}
+       if(j+5<s.length()) s.insert(j+6,1, ')');
+       
+     
+     
+      else s.push_back(')');
+      }
+            
+
+      if(s[i]=='(' && s[i+1]=='-' )
+      {
+        s.insert(i+1,1,'0');
+      }
+   }
+   
+ 
+ 
+  
+  
+  
+   return s;}
+
+
+
   
 string intopo( string s)
 {
@@ -57,8 +141,13 @@ string intopo( string s)
        }
        
       if(s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/' || s[i]=='^')
-        { 
-          while(st.top() !='N' && prec(s[i]) <= prec(st.top()))
+        { if(st.top()=='^' && s[i]=='^')
+           {
+              st.push(s[i]);
+            }
+          else
+            
+          {while(st.top() !='N' && prec(s[i]) <= prec(st.top()))
           { 
             char c = st.top();
             st.pop();
@@ -66,7 +155,7 @@ string intopo( string s)
             }
             
             st.push(s[i]);
-           }
+           }}
           }
           
           while(st.top() !='N')
@@ -141,7 +230,7 @@ t* tree( string r)
  
 }
 
-int toInt(string s)  
+long long int toInt(string s)  
 {  
     int nu = 0;  
       
@@ -153,7 +242,7 @@ int toInt(string s)
     return nu;  
 }  
 
-int eval(t *root)  
+long long int eval(t *root)  
 {  
       
     if (root==NULL)  
@@ -164,10 +253,10 @@ int eval(t *root)
         return toInt(root->num);  
   
     
-    int l_val = eval(root->left);  
+    long long int l_val = eval(root->left);  
   
    
-    int r_val = eval(root->right);  
+    long long int r_val = eval(root->right);  
   
      
     if (root->num=="+")
@@ -199,13 +288,19 @@ int main()
      for(int j=0;j<g;j++)
       {string e;
       cin>>e;
-      cout<<eval(tree(intopo(e)));}}
+      cout<<eval(tree(intopo(changestr(e))));}}
+  
  
   
   return 0;}
       
     
     
+      
+     
+     
+     
+         
       
      
      
