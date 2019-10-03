@@ -171,12 +171,13 @@ void convexHull(coor points[], int n)
    for(int i=0;i<z;i++)
    {
        int h=ar[i].x;
-       if(h<ar[i].x)
+       if(h<e)
        {
            e=ar[i].x;
            g=i;
        }
    }
+
    for(int i=g;i<z;i++)
    {
        cout<<"("<<ar[i].x<<","<<ar[i].y<<")";
