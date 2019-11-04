@@ -60,20 +60,3 @@ int main()
     cout<<kruskal(p,m,id);
     return 0;
 }
-/*que
-Given a weighted undirected graph. Find the sum of weights of edges of a Minimum Spanning Tree.
-input
-no of verices
-no of edges m
-m lines containing vertices joining edges and weights
-ouput 
-sum of edges weight in mst
-sample input output
-4 5
-1 2 7
-1 4 6
-4 2 9
-4 3 8
-2 3 6
-
-output 19*/
